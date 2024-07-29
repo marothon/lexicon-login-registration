@@ -8,8 +8,11 @@
 </head>
 <body>
   <div class="login-wrapper">
-    <h3>Register your account</h3>
-    <form>
+    <div class="login-header">
+      <h3 id="login" class="active">Login</h3>
+      <h3 id="register">Register</h3>
+    </div>
+    <form id="register">
       <div class="label-wrapper">
         <label for="name">Name</label>
         <input type="text" id="name">
@@ -17,14 +20,26 @@
       <input type="text" placeholder="Username" id="username">
       <div class="label-wrapper">
         <label for="email">Email</label>
-        <input type="text" id="email">
+        <input type="email" id="email">
       </div>
       <div class="label-wrapper">
         <label for="password">Password</label>
-        <input type="text" id="password">
+        <input type="password" id="password">
       </div>
-      <input type="text" placeholder="Confirm password" id="confirm-password">
+      <input type="password" placeholder="Confirm password" id="confirm-password">
       <button type="submit">Sign up</button>
+    </form>
+    <form id="login" class="active">
+      <div class="label-wrapper">
+        <label for="username">Username</label>
+        <input type="text" id="username">
+      </div>
+      <div class="label-wrapper">
+        <label for="password">Password</label>
+        <input type="password" id="password">
+      </div>
+      <button type="submit">Login</button>
+
     </form>
   </div>
   <script src="index.js"></script>

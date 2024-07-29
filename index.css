@@ -11,9 +11,24 @@
     margin: auto;
 
     h3{
+        margin: 0;
         text-align: center;
         color: white;
+        padding: 1rem 2rem 1rem 2rem;
+        border-radius: 0.3rem 0.3rem 0 0;
+        transition: all 0.1s ease-in-out;
+        cursor: pointer;
+
+        &:hover, &.active{
+            color: black;
+            background-color: white;
+        }
     }
+}
+
+.login-header{
+    display: flex;
+    justify-content: left;
 }
 
 form{
@@ -21,7 +36,7 @@ form{
     flex-direction: column;
     background-color: white;
     padding: 0rem;
-    border-radius: 0.25rem;
+    border-radius: 0 0 0.25rem 0.25rem;
 
     .label-wrapper{
         display: grid;
@@ -59,6 +74,10 @@ form{
         text-align: center;
         line-height: 2.5rem;
         font-size: 1.5rem;
-
+        cursor: pointer;
     }
+}
+
+form:not(.active){
+    display: none;
 }
