@@ -14,32 +14,30 @@
     </div>
     <form id="register">
       <div class="label-wrapper">
-        <label for="name">Name*</label>
-        <input type="text" id="name" name="name" autocomplete="off">
+        <label for="name">Name</label>
+        <input required type="text" id="name" name="name" autocomplete="off">
       </div>
-      <input type="text" placeholder="Username*" name="username" autocomplete="off">
+      <input required type="text" placeholder="Username" name="username" autocomplete="off">
       <div class="label-wrapper">
-        <label for="email">Email*</label>
-        <input type="email" id="email" name="email" autocomplete="on">
+        <label for="email">Email</label>
+        <input required type="email" id="email" name="email" autocomplete="on">
       </div>
       <div class="label-wrapper">
-        <label for="password">Password*</label>
-        <input type="password" id="password" name="password">
+        <label for="password">Password</label>
+        <input required type="password" minlength="8" id="password" name="password">
       </div>
-      <input type="password" placeholder="Confirm password*" name="confirm-password">
-      <aside>* are mandatory</aside>
+      <input required type="password" minlength="8" placeholder="Confirm password" name="confirm-password">
       <button type="submit">Sign up</button>
     </form>
     <form id="login" class="active">
       <div class="label-wrapper">
         <label for="username-login">Username</label>
-        <input type="text" id="username-login" name="username" autocomplete="on">
+        <input required type="text" id="username-login" name="username" autocomplete="on">
       </div>
       <div class="label-wrapper">
         <label for="password-login">Password</label>
-        <input type="password" id="password-login" name="password">
+        <input required  type="password" id="password-login" name="password">
       </div>
-      <aside>* are mandatory</aside>
       <button type="submit">Login</button>
     </form>
   </div>
