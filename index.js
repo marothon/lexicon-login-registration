@@ -29,14 +29,24 @@ function allInputsHaveValues(formElement){
     for (const [name, value] of data) {
         if(value === ''){
             valid = false;
-            highlightInvalidInput(formElement, name);
+            informUser(formElement, name, `This input is mandatory!`);
         }
     }
+}
+
+function informUser(formElement, name, warning){
+    highlightInvalidInput(formElement, name);
+    let elemToInsertAfter = formElement.querySelector(`input[name="${name}"]`);
+    if(elemToInsertAfter.parentElement.classList.contains('label-wrapper')){
+        elemToInsertAfter = elemToInsertAfter.parentElement;
+    }
+    elemToInsertAfter.insertAdjacentHTML('afterend', `<aside id="warning-${name}" class="warning">${warning}</aside>`);
 }
 
 function highlightInvalidInput(formElement, inputName){
     formElement.querySelector(`input[name="${inputName}"]`).classList.add('invalid');
     formElement.querySelector(`input[name="${inputName}"]`).addEventListener('focus', (e) => {
         e.target.classList.remove('invalid');
+        formElement.querySelector(`aside.warning#warning-${inputName}`).remove();
     }, {once: true});
 }
