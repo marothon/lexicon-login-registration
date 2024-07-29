@@ -1,5 +1,8 @@
 
 //Setup
+let usersInStorage = localStorage.getItem('users')
+let users = JSON.parse(usersInStorage == 'undefined' ? '[]' : usersInStorage);
+
 document.querySelector('h3#login').addEventListener('click', (e) => {
     document.querySelector('h3#register').classList.remove('active');
     document.querySelector('form#register').classList.remove('active');
@@ -15,13 +18,24 @@ document.querySelector('h3#register').addEventListener('click', (e) => {
 
 document.querySelector('form#register').addEventListener('submit', (e) => {
     e.preventDefault();
-    // Validate
-    allInputsHaveValues(e.target)
+
+   if(allInputsHaveValues(e.target)  && passwordWasConfirmed(e.target)){
+        storeUserData(new FormData(e.target));
+   }
 });
 
 document.querySelector('form#login').addEventListener('submit', (e) => {
     e.preventDefault();
 });
+
+function passwordWasConfirmed(formElement){
+    let data = new FormData(formElement);
+    if(! (data.get('password') === data.get('confirm-password'))){
+        informUser(formElement, 'confirm-password', 'Password does not match!');
+        return false;
+    }
+    return true;
+}
 
 function allInputsHaveValues(formElement){
     let valid = true; 
@@ -32,6 +46,7 @@ function allInputsHaveValues(formElement){
             informUser(formElement, name, `This input is mandatory!`);
         }
     }
+    return valid;
 }
 
 function informUser(formElement, name, warning){
@@ -49,4 +64,15 @@ function highlightInvalidInput(formElement, inputName){
         e.target.classList.remove('invalid');
         formElement.querySelector(`aside.warning#warning-${inputName}`).remove();
     }, {once: true});
+}
+
+function storeUserData(formData){
+    users.push({
+        name: formData.get('name'),
+        username: formData.get('name'),
+        email: formData.get('email'),
+        password: formData.get('password') //Top worst-practice ever
+    });
+    localStorage.setItem('users', JSON.stringify(users));
+    console.log(users);
 }
