@@ -59,10 +59,16 @@ form{
     }
 
     input{
+        border: 1px solid #004C91;
+        border-radius: 0.25rem;
         padding: 0.5rem 0.75rem 0.5rem 0.75rem;
         margin: 0.75rem;
         line-height: 1.5rem;
         font-size: 1rem;
+
+        &.invalid{
+            border: 1px solid red;
+        }
     }
 
     button {
@@ -75,6 +81,13 @@ form{
         line-height: 2.5rem;
         font-size: 1.5rem;
         cursor: pointer;
+    }
+
+    aside {
+        font-size: 0.8rem;
+        font-weight: 100;
+        padding: 0 0.5rem 0 0.rem;
+        margin: 0 0.75rem 0 0.75rem;
     }
 }
 
