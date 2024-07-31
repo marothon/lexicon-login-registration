@@ -1,44 +1,50 @@
 
 //Setup
-let usersInStorage = localStorage.getItem('users')
-let users = JSON.parse(usersInStorage == 'undefined' ? '[]' : usersInStorage);
+setupNavButtons();
+setupRegistration();
+setupLogin();
 
-document.querySelector('h3#login').addEventListener('click', (e) => {
-    document.querySelector('h3#register').classList.remove('active');
-    document.querySelector('form#register').classList.remove('active');
-    document.querySelector('form#login').classList.add('active');
-    e.target.classList.add('active');
-});
-document.querySelector('h3#register').addEventListener('click', (e) => {
-    document.querySelector('h3#login').classList.remove('active');
-    document.querySelector('form#login').classList.remove('active');
-    document.querySelector('form#register').classList.add('active');
-    e.target.classList.add('active');
-});
+function setupNavButtons(){    
+    document.querySelector('h3#login').addEventListener('click', (e) => {
+        document.querySelector('h3#register').classList.remove('active');
+        document.querySelector('form#register').classList.remove('active');
+        document.querySelector('form#login').classList.add('active');
+        e.target.classList.add('active');
+    });
+    document.querySelector('h3#register').addEventListener('click', (e) => {
+        document.querySelector('h3#login').classList.remove('active');
+        document.querySelector('form#login').classList.remove('active');
+        document.querySelector('form#register').classList.add('active');
+        e.target.classList.add('active');
+    });
+}
 
-document.querySelector('form#register').addEventListener('submit', (e) => {
-    e.preventDefault();
+function setupRegistration(){
+    document.querySelector('form#register').addEventListener('submit', (e) => {
+        e.preventDefault();
 
-   if(allInputsHaveValues(e.target)  && passwordWasConfirmed(e.target)){
-        let user = storeUserData(new FormData(e.target));
-        loginUser(user);
-   }
-});
+    if(allInputsHaveValues(e.target)  && passwordWasConfirmed(e.target)){
+            let user = storeUserData(new FormData(e.target));
+            loginUser(user);
+        }
+    });
+}
 
-document.querySelector('form#login').addEventListener('submit', (e) => {
-    e.preventDefault();
-    let data = new FormData(e.target);
-    let username = data.get('username');
-    let password = data.get('password');
-    let user = getUser(username, password);
-    if(user){
-        loginUser(user);
-    }else{
-        highlightInvalidInput(e.target, 'username');
-        informUser(e.target, 'password', 'Incorrect username or password!');
-    }       
-
-});
+function setupLogin(){
+    document.querySelector('form#login').addEventListener('submit', (e) => {
+        e.preventDefault();
+        let data = new FormData(e.target);
+        let username = data.get('username');
+        let password = data.get('password');
+        let user = getUser(username, password);
+        if(user){
+            loginUser(user);
+        }else{
+            highlightInvalidInput(e.target, 'username');
+            informUser(e.target, 'password', 'Incorrect username or password!');
+        }       
+    });
+}
 
 function passwordWasConfirmed(formElement){
     let data = new FormData(formElement);
@@ -63,10 +69,7 @@ function allInputsHaveValues(formElement){
 
 function informUser(formElement, name, warning){
     highlightInvalidInput(formElement, name);
-    let elemToInsertAfter = formElement.querySelector(`input[name="${name}"]`);
-    if(elemToInsertAfter.parentElement.classList.contains('label-wrapper')){
-        elemToInsertAfter = elemToInsertAfter.parentElement;
-    }
+    let elemToInsertAfter = formElement.querySelector(`input[name="${name}"]`).parentElement;
     elemToInsertAfter.insertAdjacentHTML('afterend', `<aside id="warning-${name}" class="warning">${warning}</aside>`);
 }
 
@@ -85,17 +88,29 @@ function storeUserData(formData){
         email: formData.get('email'),
         password: formData.get('password') //Top worst-practice ever
     };
-    users.push(user);
-    localStorage.setItem('users', JSON.stringify(users));
-    console.log(users);
+    addUser(user);
+    console.log(getUsersInStorage);
     return user;
 }
 
 // Amazing login functionality. Such wow.
 function getUser(username, password){
+    let users = getUsersInStorage();
     return structuredClone(users.filter( (user) => user.username == username && user.password == password ))[0];
 }
 
 function loginUser(user){
     document.querySelector('.login-wrapper').innerHTML = `<h1>Welcome ${user.name}!</h1>`;
+}
+
+function getUsersInStorage(){
+    let usersInStorage = localStorage.getItem('users');
+    return JSON.parse(usersInStorage == 'undefined' ? '[]' : usersInStorage);
+}
+
+function addUser(user){
+    let usersInStorage = getUsersInStorage();
+    usersInStorage.push(user);
+    localStorage.setItem('users', JSON.stringify(usersInStorage));
+
 }
