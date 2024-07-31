@@ -17,7 +17,10 @@
         <label for="name">Name</label>
         <input required type="text" id="name" name="name" autocomplete="off">
       </div>
-      <input required type="text" placeholder="Username" name="username" autocomplete="off">
+      <div class="label-wrapper">
+        <label for="username">Username</label>
+        <input id="username" required type="text" name="username" autocomplete="off">
+      </div>
       <div class="label-wrapper">
         <label for="email">Email</label>
         <input required type="email" id="email" name="email" autocomplete="on">
@@ -26,7 +29,10 @@
         <label for="password">Password</label>
         <input required type="password" minlength="8" id="password" name="password" autocomplete="new-password">
       </div>
-      <input required type="password" minlength="8" placeholder="Confirm password" name="confirm-password" autocomplete="new-password">
+      <div class="label-wrapper">
+        <label for="confirm-password">Confirm password</label>
+        <input id="confirm-password" type="password" minlength="8" name="confirm-password" autocomplete="new-password">
+      </div>
       <button type="submit">Sign up</button>
     </form>
     <form id="login" class="active">
